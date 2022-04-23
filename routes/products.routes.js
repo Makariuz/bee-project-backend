@@ -15,6 +15,8 @@ router.get('/', async (req,res) => {
    
 })
 
+
+
 router.get('/:id', async (req,res) => {
     const product = await Recipes.findById(req.params.id)
     product !== null ? 

@@ -3,6 +3,9 @@ const User = require('../models/user.model')
 const Recipes = require('../models/recipes.model')
 const Products = require('../models/products.model')
 const { authenticateToken } = require("../middlewares/jwt.middleware");
+const Recipe = require('../models/recipes.model');
+const multer  = require('multer')
+const upload = require('../config/cloudstorage')
 
 
 const router = express.Router()
@@ -24,14 +27,21 @@ router.get("/owned", async (req, res) => {
     res.status(200).json(recipes);
   });
 
+router.post('/upload', upload.single('picture'), (req, res) => {
+
+    res.json(req.file)
+
+})
+
 router.post('/create', authenticateToken, async (req,res) => {
-    const { title, ingredients, instructions} = req.body;
+    const { title, ingredients, instructions, image} = req.body;
     
     try{
         const recipe = await Recipes.create({
             title,
             ingredients,
             instructions,
+            image,
             author: req.jwtPayload.user._id,
         })
         
@@ -52,6 +62,22 @@ router.get('/read/:id', async (req,res) => {
     res.status(200).json(recipe)
     :
     res.status(200).json('not found')
+})
+
+router.put('/edit/:id', authenticateToken, async (req,res) => {
+    const recipe = await Recipes.findByIdAndUpdate(req.params.id, {...req.body, author: req.jwtPayload.user._id}, {new: true})
+})
+
+router.delete('/:id', authenticateToken, async (req,res) => {
+
+ const recipe = await Recipes.findById(req.params.id).populate('author')
+ 
+    await Recipe.findByIdAndDelete(req.params.id)
+    res.status(200).json('deleted')
+
+   // await Recipe.findByIdAndDelete(req.params.id)
+
+   // req.jwtPayload.user._id === recipe.author.toString() && await Recipe.findByIdAndDelete(req.params.id)
 })
 
 
