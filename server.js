@@ -16,7 +16,7 @@ app.use(cors())
 app.use(express.json())
 
 app.get('/', (req,res) => {
-    res.send('Hello world'!)
+    res.send('Hello world!!!!')
 })
 
 const authRoutes = require('./routes/auth.routes')
