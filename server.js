@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 
 dotenv.config()
-//comment
+
 
 mongoose.connect(process.env.MONGO_DB_URL)
 
