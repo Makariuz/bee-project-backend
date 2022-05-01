@@ -23,6 +23,10 @@ const recipeSchema = new Schema({
         /* required: true, */
         ref: 'User',
     },
+    rating: {
+        type: Number,
+        default: 0,
+    },
     createdAt: {
         type: Date,
         default: Date.now
