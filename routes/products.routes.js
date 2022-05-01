@@ -32,11 +32,12 @@ router.post('/upload', upload.single('image'), (req, res) => {
 })
 
 router.post('/add', async (req,res) => {
-    const { name, image, description} = req.body;
+    const { name, image, description, prices} = req.body;
     const products = await Products.create({
         name,
         image,
         description,
+        prices
     })
     res.status(200).json(products)
 })
