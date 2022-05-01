@@ -12,9 +12,9 @@ const productSchema = new Schema({
         type: String,
         default: 'https://res.cloudinary.com/portkey/image/upload/v1645273815/profile-pictures/hp_owshdn.png'
     },
-    qtd: {
-        type: Number,
-        default: 1,
+    description: {
+        type: String,
+        default: 'No description added',
     }
 
 })
