@@ -20,7 +20,6 @@ const recipeSchema = new Schema({
     },
     author: {
         type: mongoose.SchemaTypes.ObjectId,
-        /* required: true, */
         ref: 'User',
     },
     rating: {

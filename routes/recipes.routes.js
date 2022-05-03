@@ -49,6 +49,13 @@ router.post("/create", authenticateToken, async (req, res) => {
   }
 });
 
+router.get('/save/:id', async (req,res) => {
+  const recipe = await Recipes.findById(req.params.id)
+
+  res.status(200).json(recipe)
+
+})
+
 router.get("/read/:id", async (req, res) => {
   const recipe = await Recipes.findById(req.params.id).populate("author");
 

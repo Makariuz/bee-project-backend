@@ -27,10 +27,10 @@ const userSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    recipes: [{
-        type: mongoose.SchemaTypes.ObjectId,
+    recipes: {
+        type: [mongoose.SchemaTypes.ObjectId],
         ref: 'Recipe'
-    }]
+    }
 })
 
 const User = model('User', userSchema)

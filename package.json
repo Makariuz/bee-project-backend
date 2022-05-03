@@ -21,7 +21,8 @@
     "mongoose": "^6.2.7",
     "multer": "^1.4.4",
     "multer-storage-cloudinary": "^4.0.0",
-    "streamifier": "^0.1.1"
+    "streamifier": "^0.1.1",
+    "stripe": "^8.220.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"

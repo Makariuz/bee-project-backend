@@ -79,7 +79,7 @@ router.post("/login", async (req, res) => {
 
 router.get("/profile", authenticateToken, async (req, res) => {
   const user = await User.findById(req.jwtPayload.user._id).populate('recipes');
-  console.log('test')
+
   const recipesOwned = await Recipes.find({
     author: req.jwtPayload.user._id.toString(),
   }).populate("author");
@@ -87,13 +87,13 @@ router.get("/profile", authenticateToken, async (req, res) => {
   res.status(200).json({ user, recipesOwned });
 });
 
-router.get("/profile/read/:id", async (req, res) => {
+/* router.get("/profile/read/:id", async (req, res) => {
   const recipe = await Recipes.findById(req.params.id).populate("author");
 
   recipe !== null
     ? res.status(200).json(recipe)
     : res.status(200).json("not found");
-});
+}); */
 
 router.get("/verify", authenticateToken, (req, res) => {
   res.status(200).json(req.jwtPayload.user);
