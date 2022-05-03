@@ -79,6 +79,7 @@ router.post("/login", async (req, res) => {
 
 router.get("/profile", authenticateToken, async (req, res) => {
   const user = await User.findById(req.jwtPayload.user._id).populate('recipes');
+console.log(user)
 
   const recipesOwned = await Recipes.find({
     author: req.jwtPayload.user._id.toString(),
