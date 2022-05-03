@@ -49,10 +49,14 @@ router.post("/create", authenticateToken, async (req, res) => {
   }
 });
 
-router.get('/save/:id', async (req,res) => {
+router.get('/save/:id', authenticateToken, async (req,res) => {
   const recipe = await Recipes.findById(req.params.id)
+  
+  const user = await User.findById(req.jwtPayload.user._id)
 
-  res.status(200).json(recipe)
+  user.recipes.push(recipe)
+
+  res.status(200).json(user)
 
 })
 
