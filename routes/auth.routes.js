@@ -48,7 +48,7 @@ router.put("/edit-user/:id", authenticateToken, async (req, res) => {
 
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ email }).populate('recipes');
   try {
     if (user) {
       const passwordCorrect = await bcrypt.compare(password, user.password);
@@ -98,6 +98,7 @@ router.get("/profile", authenticateToken, async (req, res) => {
 
 router.get("/verify", authenticateToken, (req, res) => {
   res.status(200).json(req.jwtPayload.user);
+  console.log(req.jwtPayload.user)
 });
 
 module.exports = router;

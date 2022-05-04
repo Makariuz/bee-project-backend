@@ -59,7 +59,7 @@ router.get('/save/:id', authenticateToken, async (req,res) => {
 })
 
 router.get("/read/:id", async (req, res) => {
-  const recipe = await Recipes.findById(req.params.id).populate("author");
+  const recipe = await Recipes.findById(req.params.id);
 
   recipe !== null
     ? res.status(200).json(recipe)
