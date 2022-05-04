@@ -51,7 +51,7 @@ router.post("/create", authenticateToken, async (req, res) => {
 
 router.get('/save/:id', authenticateToken, async (req,res) => {
   const user = await User.findById(req.jwtPayload.user._id)
-  user.recipes.push(req.params.id)
+  user.recipe.push(req.params.id)
   await user.save()
 
   res.status(200).json(user)
@@ -59,7 +59,7 @@ router.get('/save/:id', authenticateToken, async (req,res) => {
 })
 
 router.get("/read/:id", async (req, res) => {
-  const recipe = await Recipes.findById(req.params.id);
+  const recipe = await Recipes.findById(req.params.id).populate("author");
 
   recipe !== null
     ? res.status(200).json(recipe)
