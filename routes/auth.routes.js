@@ -98,7 +98,6 @@ router.get("/profile", authenticateToken, async (req, res) => {
 
 router.get("/verify", authenticateToken, (req, res) => {
   res.status(200).json(req.jwtPayload.user);
-  console.log(req.jwtPayload.user)
 });
 
 module.exports = router;
