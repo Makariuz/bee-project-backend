@@ -48,6 +48,7 @@ router.put("/edit-user/:id", authenticateToken, async (req, res) => {
 
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
+
   const user = await User.findOne({ email }).populate('recipes');
   try {
     if (user) {
