@@ -51,7 +51,8 @@ router.post("/create", authenticateToken, async (req, res) => {
 
 router.get('/save/:id', authenticateToken, async (req,res) => {
   const user = await User.findById(req.jwtPayload.user._id)
-  user.recipe.push(req.params.id)
+ 
+  user.recipes.push(req.params.id)
   await user.save()
 
   res.status(200).json(user)
