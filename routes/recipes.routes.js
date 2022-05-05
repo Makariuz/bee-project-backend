@@ -87,10 +87,11 @@ router.delete("/:id", authenticateToken, async (req, res) => {
   const recipe = await Recipes.findById(req.params.id).populate('author')
   const user = await User.findById(req.jwtPayload.user._id)
  
-  user.recipes = user.recipes.filter((recipe) => recipe._id !== req.params.id)
+  user.recipes = user.recipes.filter((recipe) => recipe._id.toString() !== req.params.id)
+  //console.log(user.recipes)
   await user.save()
 
- await Recipe.findByIdAndDelete(req.params.id);
+await Recipe.findByIdAndDelete(req.params.id);
 
 
 
