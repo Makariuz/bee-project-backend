@@ -84,14 +84,18 @@ router.put("/edit/:id", authenticateToken, async (req, res) => {
 });
 
 router.delete("/:id", authenticateToken, async (req, res) => {
-  const recipe = await Recipes.findById(req.params.id).populate("author");
+  const recipe = await Recipes.findById(req.params.id).populate('author')
+  const user = await User.findById(req.jwtPayload.user._id)
+ 
+  user.recipes = user.recipes.filter((recipe) => recipe._id !== req.params.id)
+  await user.save()
 
-  await Recipe.findByIdAndDelete(req.params.id);
+ await Recipe.findByIdAndDelete(req.params.id);
+
+
+
   res.status(200).json("deleted");
 
-  // await Recipe.findByIdAndDelete(req.params.id)
-
-  // req.jwtPayload.user._id === recipe.author.toString() && await Recipe.findByIdAndDelete(req.params.id)
 });
 
 module.exports = router;
