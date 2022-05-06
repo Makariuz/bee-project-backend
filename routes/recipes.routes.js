@@ -16,12 +16,11 @@ router.get("/", async (req, res) => {
 });
 
 // get all recipes for a user
-router.get("/owned", async (req, res) => {
-  console.log(req);
-  const recipes = await Recipes.find({
-    author: req.jwtPayload.user._id,
-  }).populate("author");
-  res.status(200).json(recipes);
+router.get("/user/saved", authenticateToken, async (req, res) => {
+
+  const user = await User.findById(req.jwtPayload.user._id).populate("recipes");
+
+  res.status(200).json(user.recipes);
 });
 
 router.post("/upload", upload.single("image"), (req, res) => {
